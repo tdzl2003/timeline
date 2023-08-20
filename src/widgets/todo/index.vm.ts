@@ -56,6 +56,22 @@ const cmdList: CommandItem[] = [
     },
   },
   {
+    reg: /^\/name (.+)/,
+    help: '/name 修改角色名',
+    handle(name) {
+      if (!this.currentAccount) return;
+      this.currentAccount.name = name;
+    },
+  },
+  {
+    reg: /^\/account (.+)/,
+    help: '/account 修改角色名',
+    handle(account) {
+      if (!this.currentAccount) return;
+      this.currentAccount.account = account;
+    },
+  },
+  {
     reg: /^\/(?:c|clear)/,
     help: '/c /clear 清除所有通知',
     handle() {
