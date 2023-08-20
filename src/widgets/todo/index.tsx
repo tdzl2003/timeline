@@ -67,7 +67,7 @@ function NotifyItemView({ acc, item }: { acc: AccountItem; item: NotifyItem }) {
           }
         })}
       >
-        完成
+        X
       </div>
     </div>
   );
