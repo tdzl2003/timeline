@@ -37,10 +37,7 @@ const cmdList: CommandItem[] = [
     reg: /^\/(?:h|help)/,
     help: '/h /help 显示帮助',
     handle() {
-      this.log('帮助：');
-      for (const item of cmdList) {
-        this.log('\t' + item.help);
-      }
+      this.log(cmdList.map((v) => '\t' + v.help).join('\n'));
     },
   },
   {
@@ -135,8 +132,12 @@ export class TodoViewModel {
     localStorage.setItem(STORAGE_KEY, data);
   }
 
+  @action
   log(cmd: string) {
-    this.logs.push(cmd + '\n');
+    this.logs.unshift(cmd + '\n');
+    if (this.logs.length >= 100) {
+      this.logs.pop();
+    }
   }
 
   getNotifyCnt(acc: AccountItem) {
@@ -154,12 +155,12 @@ export class TodoViewModel {
 
   @action
   processAction(cmd: string) {
-    this.log('$ ' + cmd);
     for (const item of cmdList) {
       const m = item.reg.exec(cmd);
       if (m) {
         item.handle.apply(this, [...m].slice(1));
       }
     }
+    this.log('$ ' + cmd);
   }
 }

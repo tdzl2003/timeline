@@ -164,6 +164,7 @@ export function Todo() {
           })}
         </div>
         <input
+          placeholder="/help"
           value={cmd}
           autoFocus
           onInput={action((ev) => {
